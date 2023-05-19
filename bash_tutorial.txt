@@ -1,0 +1,27 @@
+
+Tutorial de arrays em bash
+
+#aqui eu declaro uma array
+declare -a array
+cont=0
+while read line;
+do
+    array[cont]=$line
+    ((cont++))
+#uso da sintaxe de c para incrementar a variavel
+done
+echo ${array[@]}
+#imprimo todos os elementos da array, se eu quisesse imprimir a quatidade de elementos usaria ${#array[@]}
+#posso tambem iniciar uma array assim :farm_hosts=(web03 web04 web05 web06 web07)
+
+
+# Definindo uma matriz de exemplo
+array=("item1" "item2" "item3" "item4" "item5" "item6" "item7")
+
+# Fatiando a matriz a partir do índice 2 (item3) e com um comprimento de 3 elementos
+sliced_array=("${array[@]:2:3}")
+
+# Imprimindo o resultado
+for item in "${sliced_array[@]}"; do
+  echo "$item"
+done
