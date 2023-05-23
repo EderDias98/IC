@@ -1,0 +1,26 @@
+Criar docker e criar moodle:
+
+Descrever os passos para iniciar a máquina:
+
+docker images -> lista os ultimos containers criados pela máquina
+
+docker pull ederdias/moodle -> puchar todos dados que formam o conteiner do docker hub
+
+docker run -i -t ederdias/moodle -> iniciar o conteiner
+
+sudo docker run -it -p 8000:80 -p 3306:3306 <nome_identificador>/moodle -> iniciar o
+container e configurar as portas de rede
+
+service apache2 start -> no container
+
+service mysql start -> no container
+
+http://localhost:8000/moodle -> entrar no moodle na nuvem
+ 
+Instalar moodle:
+
+adicionar o plugin:
+
+aprender gerenciar o moodle:
+
+download e upload do plugin:
