@@ -1,5 +1,117 @@
 Criar docker e criar moodle:
 
+1) Instalar o docker usando o script docker_install.sh
+
+sudo docker run -it ubuntu
+
+apt-get update
+
+apt-get install graphviz aspell ghostscript clamav git
+
+apt update
+
+apt upgrade
+
+apt install wget -y
+
+wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
+
+apt install -y lsb-core
+
+dpkg -i mysql-apt-config_0.8.12-1_all.deb (escolha ubuntu bionic [7] , para
+mudar a versão do Mysql [1], selecionar o mysql-5.7 [1], confirmar [4] )
+
+apt-get update
+
+*Caso ele diga que uma das chaves não está disponível faça
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys
+
+467B942D3A79BD29
+
+apt-get update
+
+apt-cache policy mysql-server (Checa se o servidor foi instalado)
+
+apt install -f mysql-community-client=5.7* mysql-client=5.7*
+mysql-community-server=5.7* mysql-server=5.7*
+
+-Será pedido para definir uma senha do usuário root, fica opcional nessa
+etapa.Caso você dê enter somente, na primeira execução do mysql você terá que
+definir a senha.
+
+mysql --version (Checa a versão baixada)
+
+apt-get install software-properties-common
+
+apt-get update
+
+add-apt-repository ppa:ondrej/php
+
+apt-get install apache2
+
+apt-get install -y php5.6 php5.6-mcrypt php5.6-mbstring php5.6-curl php5.6-cli
+php5.6-mysql php5.6-gd php5.6-intl php5.6-xsl php5.6-zip
+libapache2-mod-php5.6 php5.6-soap php5.6-xmlrpc /lembrar da formatação em uma linha
+
+-Será pedido para selecionar sua localização geográfica e fuso horário.
+
+a2enmod php5.6
+
+service apache2 restart
+
+php --version (checar a versão do php)
+
+(abrir novo terminal normal)
+
+Nessa etapa será necessário a instalação do moodle 3.1.18, extraia o zip e renomeie a
+pasta para moodle somente.
+Em seguida faça os seguintes comandos:
+
+sudo docker cp /home/lcad/moodle/ <id da imagem>:/var/www/html/ =  sudo docker cp /home/ederdias/moodle/moodle 27ba4e52cecb:/var/www/html/
+
+sudo docker commit <id da imagem> moodle
+
+
+Ajeitando as configurações de banco de dados
+
+sudo docker run -p 8000:80 -p 3306:3306 -it moodle (entrando na imagem)
+
+apt-get install net-tools
+
+service apache2 start
+ 
+apt-get install mysql-server
+
+service mysql stop
+
+service mysql start
+
+mysql -u root -p (Crie/entre com uma senha para o usuario root)
+
+CREATE USER ‘<nome_de_usuario>’@’localhost’ IDENTIFIED WITH
+mysql_native_password BY '<senha>'; (teste, nao sera o admin final)
+
+exit
+
+chown www-data.www-data /var/www/html/moodle -R
+
+chown www-data /var/www/moodledata -R/pode acontecer de ter que criar o dir moodledata
+
+Baixando o moodle
+sudo docker run -p 8000:80 -p 3306:3306 -it moodle
+service apache2 start
+service mysql start
+chmod 0777 /var/www -R
+mysql -u root -p
+GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE
+TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* TO
+<nome_de_usuario>@localhost;/lembre de colocar numa mesma linha, o nome de usuario é o feito para o mysql: admin
+
+A partir disso, acesse no navegador
+http://localhost:8000/moodle e siga o passo-a-passo
+
+erro Warning: mysqli::mysqli(): (HY000/2002): Permission denied in /var/www/html/moodle/lib/dml/mysqli_native_moodle_database.php on line 79
+
 Descrever os passos para iniciar a máquina:
 
 docker images -> lista os ultimos containers criados pela máquina
